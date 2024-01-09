@@ -1,13 +1,12 @@
 package kr.pe.ssun.marveldex.network.ktor
 
-import kr.pe.ssun.marveldex.network.SsunNetworkDataSource
+import kr.pe.ssun.marveldex.network.MarvelNetworkDataSource
 import kr.pe.ssun.marveldex.network.model.NetworkCharacter
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
@@ -24,7 +23,7 @@ import javax.inject.Singleton
 import javax.net.ssl.X509TrustManager
 
 @Singleton
-class KtorSsunNetwork @Inject constructor() : SsunNetworkDataSource {
+class KtorMarvelNetwork @Inject constructor() : MarvelNetworkDataSource {
 
     private val client = HttpClient(CIO) {
         // TODO : remove this
@@ -58,7 +57,6 @@ class KtorSsunNetwork @Inject constructor() : SsunNetworkDataSource {
 
     override suspend fun getCharacters(): NetworkWrapper<NetworkCharacter> = client.get("v1/public/characters") {
         url {
-            // TODO : 키는 가려주기
             val ts = (System.currentTimeMillis() / 1000).toString()
             val publicKey = BuildConfig.MARVEL_PUBLIC_KEY
             val privateKey = BuildConfig.MARVEL_PRIVATE_KEY

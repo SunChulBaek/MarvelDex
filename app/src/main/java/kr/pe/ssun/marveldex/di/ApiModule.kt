@@ -1,7 +1,7 @@
 package kr.pe.ssun.marveldex.di
 
-import kr.pe.ssun.marveldex.network.ktor.KtorSsunNetwork
-import kr.pe.ssun.marveldex.data.repository.FakeRepository
+import kr.pe.ssun.marveldex.network.ktor.KtorMarvelNetwork
+import kr.pe.ssun.marveldex.data.repository.MarvelRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +15,8 @@ object ApiModule {
     @Singleton
     @Provides
     fun providesFakeRepository(
-        apiService: KtorSsunNetwork
-    ): FakeRepository {
-        return FakeRepository(apiService)
+        apiService: KtorMarvelNetwork
+    ): MarvelRepository {
+        return MarvelRepository(apiService)
     }
 }
