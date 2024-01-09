@@ -4,5 +4,8 @@ import kr.pe.ssun.marveldex.network.model.NetworkCharacter
 import kr.pe.ssun.marveldex.network.model.NetworkWrapper
 
 interface MarvelNetworkDataSource {
-    suspend fun getCharacters(): NetworkWrapper<NetworkCharacter>
+    suspend fun getCharacters(
+        limit: Int?,
+        offset: Int?
+    ): NetworkWrapper<NetworkCharacter>
 }

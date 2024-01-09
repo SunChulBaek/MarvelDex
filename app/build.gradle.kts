@@ -89,6 +89,10 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.lottie.compose)
 
+    // Paging
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
     // Android Architecture Components
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)

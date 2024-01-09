@@ -8,13 +8,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+data class GetCharactersParam(
+    val limit: Int?,
+    val offset: Int?,
+)
+
 class GetCharactersUseCase @Inject constructor(
     @IoDispatcher dispatcher: CoroutineDispatcher,
     private val repository: MarvelRepository
-) : FlowUseCase<Any?, List<Character>>(dispatcher) {
+) : FlowUseCase<GetCharactersParam, List<Character>>(dispatcher) {
 
-    override fun execute(parameters: Any?): Flow<Result<List<Character>>> =
-        repository.getCharacters().map { characters ->
+    override fun execute(parameters: GetCharactersParam): Flow<Result<List<Character>>> =
+        repository.getCharacters(parameters.limit, parameters.offset).map { characters ->
             characters?.let {
                 Result.success(characters)
             } ?: run {

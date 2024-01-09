@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import kr.pe.ssun.marveldex.ui.common.ErrorScreen
 import kr.pe.ssun.marveldex.ui.common.LoadingScreen
 
@@ -20,10 +21,12 @@ fun HomeContent(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
+    val characters = viewModel.characters.collectAsLazyPagingItems()
 
     Box(
         modifier = Modifier
-            .fillMaxSize().padding(horizontal = 16.dp)
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
             .background(MaterialTheme.colorScheme.background)
     ) {
         when (uiState) {
@@ -32,11 +35,14 @@ fun HomeContent(
             is HomeUiState.Success -> {
                 val photos = (uiState as HomeUiState.Success).photos
                 Box(modifier = Modifier) {
-                    LazyColumn(modifier = Modifier.fillMaxSize(), state = listState) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        state = listState
+                    ) {
                         items(
-                            count = photos.size,
+                            count = characters.itemCount,
                             itemContent = { index ->
-                                PhotoItem(modifier = Modifier.padding(top = 10.dp), item = photos[index]) {
+                                PhotoItem(modifier = Modifier.padding(top = 10.dp), item = characters[index]!!) {
                                     // navigate("photo_detail", Pair(photos[index].name, photos[index].url))
                                 }
                             }

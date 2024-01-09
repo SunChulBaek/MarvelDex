@@ -52,18 +52,25 @@ class KtorMarvelNetwork @Inject constructor() : MarvelNetworkDataSource {
 
         defaultRequest {
             url("https://gateway.marvel.com:443/")
-        }
-    }
 
-    override suspend fun getCharacters(): NetworkWrapper<NetworkCharacter> = client.get("v1/public/characters") {
-        url {
+            // https://developer.marvel.com/documentation/authorization
             val ts = (System.currentTimeMillis() / 1000).toString()
             val publicKey = BuildConfig.MARVEL_PUBLIC_KEY
             val privateKey = BuildConfig.MARVEL_PRIVATE_KEY
             val md5 = md5("$ts$privateKey$publicKey")
-            parameters.append("ts", ts)
-            parameters.append("apikey", publicKey)
-            parameters.append("hash", md5)
+            url.parameters.append("ts", ts)
+            url.parameters.append("apikey", publicKey)
+            url.parameters.append("hash", md5)
+        }
+    }
+
+    override suspend fun getCharacters(
+        limit: Int?,
+        offset: Int?
+    ): NetworkWrapper<NetworkCharacter> = client.get("v1/public/characters") {
+        url {
+            parameters.append("limit", "${limit ?: 0}")
+            parameters.append("offset", "${offset ?: 0}")
         }
     }.body()
 
