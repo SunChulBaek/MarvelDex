@@ -1,6 +1,8 @@
 package kr.pe.ssun.marveldex.ui.home
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,9 +14,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import kr.pe.ssun.marveldex.data.model.Character
@@ -47,14 +50,27 @@ fun PhotoItem(
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 8.dp)
-                    .fillMaxSize(),
-                text = item.name ?: "",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth().fillMaxHeight()
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp)
+                        .fillMaxWidth(),
+                    text = item.name ?: "",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    modifier = Modifier
+                        .padding(start = 8.dp, bottom = 8.dp, end = 8.dp)
+                        .fillMaxSize(),
+                    text = item.description ?: "",
+                    style = MaterialTheme.typography.bodyMedium,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
         }
     }
 }
