@@ -74,6 +74,10 @@ class KtorMarvelNetwork @Inject constructor() : MarvelNetworkDataSource {
         }
     }.body()
 
+    override suspend fun getCharacter(
+        id: Int
+    ): NetworkWrapper<NetworkCharacter> = client.get("v1/public/characters/$id").body()
+
     private fun md5(str: String): String {
         val md = MessageDigest.getInstance("MD5")
         return BigInteger(1, md.digest(str.toByteArray())).toString(16).padStart(32, '0')

@@ -8,4 +8,8 @@ interface MarvelNetworkDataSource {
         limit: Int?,
         offset: Int?
     ): NetworkWrapper<NetworkCharacter>
+
+    suspend fun getCharacter(
+        id: Int
+    ): NetworkWrapper<NetworkCharacter>
 }

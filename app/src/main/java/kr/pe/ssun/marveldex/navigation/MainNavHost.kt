@@ -107,8 +107,8 @@ fun navigate(
     params: Any? = null,
 ) {
     when (dest) {
-        characterDetailNavigationRoute -> (params as? Pair<*, *>)?.let { (title, url) ->
-            navController.navigateToCharacterDetail(title as String, url as String)
+        characterDetailNavigationRoute -> (params as? Triple<*, *, *>)?.let { (id, name, thumbnail) ->
+            navController.navigateToCharacterDetail(id as Int, name as String, thumbnail as String)
         }
         else -> TODO()
     }

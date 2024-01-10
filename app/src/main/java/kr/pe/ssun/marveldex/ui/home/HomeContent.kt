@@ -43,7 +43,14 @@ fun HomeContent(
                             count = characters.itemCount,
                             itemContent = { index ->
                                 PhotoItem(modifier = Modifier.padding(top = 10.dp), item = characters[index]!!) {
-                                    navigate("character_detail", Pair("aaa", "bbb"))
+                                    navigate(
+                                        "character_detail",
+                                        Triple(
+                                            characters[index]!!.id,
+                                            characters[index]!!.name,
+                                            characters[index]!!.thumbnail
+                                        )
+                                    )
                                 }
                             }
                         )

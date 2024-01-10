@@ -7,17 +7,20 @@ import androidx.compose.animation.ExitTransition
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import kr.pe.ssun.marveldex.ui.detail.CharacterDetailScreen
 
 const val characterDetailNavigationRoute = "character_detail"
 
-const val characterDetailTitleArgs = "title"
+const val characterDetailIdArgs = "id"
+const val characterDetailNameArgs = "name"
 const val characterDetailUrlArgs = "url"
 
-fun NavController.navigateToCharacterDetail(title: String, url: String, navOptions: NavOptions? = null) {
-    val encoded = Base64.encodeToString(url.toByteArray(), Base64.DEFAULT)
-    this.navigate("$characterDetailNavigationRoute/$title/$encoded", navOptions)
+fun NavController.navigateToCharacterDetail(id: Int, name: String, thumbnail: String, navOptions: NavOptions? = null) {
+    val encoded = Base64.encodeToString(thumbnail.toByteArray(), Base64.DEFAULT)
+    this.navigate("$characterDetailNavigationRoute/$id/$name/$encoded", navOptions)
 }
 
 fun NavGraphBuilder.characterDetailScreen(
@@ -30,18 +33,23 @@ fun NavGraphBuilder.characterDetailScreen(
     onBack: () -> Unit,
 ) {
     composable(
-        route = "$characterDetailNavigationRoute/{$characterDetailTitleArgs}/{$characterDetailUrlArgs}",
+        route = "$characterDetailNavigationRoute/{$characterDetailIdArgs}/{$characterDetailNameArgs}/{$characterDetailUrlArgs}",
+        arguments = listOf(
+            navArgument(characterDetailIdArgs) {
+                type = NavType.IntType
+            }
+        ),
         enterTransition = { enterTransition },
         exitTransition = { exitTransition },
         popEnterTransition = { popEnterTransition },
         popExitTransition = { popExitTransition },
     ) { backStackEntry ->
-        val title = backStackEntry.arguments?.getString(characterDetailTitleArgs)
+        val name = backStackEntry.arguments?.getString(characterDetailNameArgs)
         val encodedUrl = backStackEntry.arguments?.getString(characterDetailUrlArgs)
         val decodedUrl = String(Base64.decode(encodedUrl, 0))
         CharacterDetailScreen(
-            title = title,
-            url = decodedUrl,
+            name = name,
+            thumbnail = decodedUrl,
         )
     }
 }

@@ -22,4 +22,11 @@ class MarvelRepository @Inject constructor(
         val data: NetworkContainer<NetworkCharacter>? = network.getCharacters(limit = limit, offset = offset).data
         emit(data?.results?.map(NetworkCharacter::asExternalModel))
     }
+
+    fun getCharacter(
+        id: Int
+    ): Flow<Character?> = flow {
+        val data = network.getCharacter(id = id).data
+        emit(data?.results?.get(0)?.asExternalModel())
+    }
 }

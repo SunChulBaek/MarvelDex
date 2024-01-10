@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kr.pe.ssun.marveldex.data.CharacterPagingSource
-import kr.pe.ssun.marveldex.data.repository.MarvelRepository
 import kr.pe.ssun.marveldex.domain.GetCharactersParam
 import javax.inject.Inject
 
