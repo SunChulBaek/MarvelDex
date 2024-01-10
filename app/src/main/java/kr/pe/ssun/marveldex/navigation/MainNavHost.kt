@@ -6,29 +6,27 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import kr.pe.ssun.marveldex.ui.common.MyWebView
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberAnimatedNavController(),
+    navController: NavHostController = rememberNavController(),
     showToast: (String) -> Toast,
     onBack: () -> Unit,
     startDestination: String = homeNavigationRoute,
 ) {
-    AnimatedNavHost(
+    NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
@@ -44,7 +42,7 @@ fun MainNavHost(
             onBack = onBack
         )
         // 포토
-        photoDetailScreen(
+        characterDetailScreen(
             enterTransition = defaultEnterTransition(),
             exitTransition = defaultExitTransition(),
             popEnterTransition = defaultPopEnterTransition(),
@@ -80,7 +78,7 @@ fun defaultEnterTransition(): EnterTransition = slideInHorizontally(
 )
 
 fun defaultExitTransition(): ExitTransition = slideOutHorizontally(
-    targetOffsetX = { fullHeight -> fullHeight },
+    targetOffsetX = { fullHeight -> -fullHeight },
     animationSpec = tween(
         durationMillis = 300,
         easing = FastOutSlowInEasing
@@ -109,8 +107,8 @@ fun navigate(
     params: Any? = null,
 ) {
     when (dest) {
-        photoDetailNavigationRoute -> (params as? Pair<*, *>)?.let { (title, url) ->
-            navController.navigateToPhotoDetail(title as String, url as String)
+        characterDetailNavigationRoute -> (params as? Pair<*, *>)?.let { (title, url) ->
+            navController.navigateToCharacterDetail(title as String, url as String)
         }
         else -> TODO()
     }

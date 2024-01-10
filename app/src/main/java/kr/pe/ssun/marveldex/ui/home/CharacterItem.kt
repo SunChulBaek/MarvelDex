@@ -30,7 +30,6 @@ fun PhotoItem(
     item: Character,
     onClick: () -> Unit
 ) {
-    Timber.i("[sunchulbaek] url = ${item.thumbnail}")
     Card(
         onClick = onClick,
         modifier = modifier

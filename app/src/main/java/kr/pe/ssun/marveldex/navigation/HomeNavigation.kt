@@ -7,6 +7,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavGraphBuilder
 import kr.pe.ssun.marveldex.ui.home.HomeScreen
 import com.google.accompanist.navigation.animation.composable
+import timber.log.Timber
 
 const val homeNavigationRoute = "home"
 
@@ -22,10 +23,18 @@ fun NavGraphBuilder.homeScreen(
 ) {
     composable(
         route = homeNavigationRoute,
-        enterTransition = { enterTransition },
-        exitTransition = { exitTransition },
-        popEnterTransition = { popEnterTransition },
-        popExitTransition = { popExitTransition }
+        enterTransition = {
+            Timber.d("[sunchulbaek] home.enterTransition()")
+            enterTransition },
+        exitTransition = {
+            Timber.d("[sunchulbaek] home.exitTransition()")
+            exitTransition },
+        popEnterTransition = {
+            Timber.d("[sunchulbaek] home.popEnterTransition()")
+            popEnterTransition },
+        popExitTransition = {
+            Timber.d("[sunchulbaek] home.popExitTransition()")
+            popExitTransition }
     ) {
         HomeScreen(navigate, showToast, onBack)
     }

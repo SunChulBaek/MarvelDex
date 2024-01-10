@@ -4,25 +4,23 @@ import android.util.Base64
 import android.widget.Toast
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import kr.pe.ssun.marveldex.ui.detail.PhotoDetailScreen
-import com.google.accompanist.navigation.animation.composable
+import androidx.navigation.compose.composable
+import kr.pe.ssun.marveldex.ui.detail.CharacterDetailScreen
 
-const val photoDetailNavigationRoute = "photo_detail"
+const val characterDetailNavigationRoute = "character_detail"
 
-const val photoDetailTitleArgs = "title"
-const val photoDetailUrlArgs = "url"
+const val characterDetailTitleArgs = "title"
+const val characterDetailUrlArgs = "url"
 
-fun NavController.navigateToPhotoDetail(title: String, url: String, navOptions: NavOptions? = null) {
+fun NavController.navigateToCharacterDetail(title: String, url: String, navOptions: NavOptions? = null) {
     val encoded = Base64.encodeToString(url.toByteArray(), Base64.DEFAULT)
-    this.navigate("$photoDetailNavigationRoute/$title/$encoded", navOptions)
+    this.navigate("$characterDetailNavigationRoute/$title/$encoded", navOptions)
 }
 
-@OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.photoDetailScreen(
+fun NavGraphBuilder.characterDetailScreen(
     enterTransition: EnterTransition = EnterTransition.None,
     exitTransition: ExitTransition = ExitTransition.None,
     popEnterTransition: EnterTransition = EnterTransition.None,
@@ -32,16 +30,16 @@ fun NavGraphBuilder.photoDetailScreen(
     onBack: () -> Unit,
 ) {
     composable(
-        route = "$photoDetailNavigationRoute/{$photoDetailTitleArgs}/{$photoDetailUrlArgs}",
+        route = "$characterDetailNavigationRoute/{$characterDetailTitleArgs}/{$characterDetailUrlArgs}",
         enterTransition = { enterTransition },
         exitTransition = { exitTransition },
         popEnterTransition = { popEnterTransition },
         popExitTransition = { popExitTransition },
     ) { backStackEntry ->
-        val title = backStackEntry.arguments?.getString(photoDetailTitleArgs)
-        val encodedUrl = backStackEntry.arguments?.getString(photoDetailUrlArgs)
+        val title = backStackEntry.arguments?.getString(characterDetailTitleArgs)
+        val encodedUrl = backStackEntry.arguments?.getString(characterDetailUrlArgs)
         val decodedUrl = String(Base64.decode(encodedUrl, 0))
-        PhotoDetailScreen(
+        CharacterDetailScreen(
             title = title,
             url = decodedUrl,
         )
