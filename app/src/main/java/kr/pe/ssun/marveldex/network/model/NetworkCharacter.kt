@@ -2,7 +2,6 @@ package kr.pe.ssun.marveldex.network.model
 
 import kr.pe.ssun.marveldex.data.model.Character
 import com.google.gson.annotations.SerializedName
-import java.util.Date
 
 data class NetworkCharacter(
     @SerializedName("id") val id: Int?,
