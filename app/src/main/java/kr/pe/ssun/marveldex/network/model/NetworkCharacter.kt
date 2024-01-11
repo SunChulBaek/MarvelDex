@@ -8,7 +8,8 @@ data class NetworkCharacter(
     @SerializedName("id") val id: Int?,
     @SerializedName("name") val name: String?,
     @SerializedName("description") val description: String?,
-    @SerializedName("modified") val modified: Date?,
+    // TODO : Date 타입으로 파싱 안되는 경우가 있어 일단 문자열로 받음 (ex. "-0001-11-30T00:00:00-0500")
+    @SerializedName("modified") val modified: String?,
     @SerializedName("resourceURI") val resourceURI: String?,
     @SerializedName("urls") val urls: List<NetworkUrl>?,
     @SerializedName("thumbnail") val thumbnail: NetworkImage?,
