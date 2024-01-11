@@ -11,6 +11,7 @@ import javax.inject.Inject
 data class GetCharacterParam(
     val id: Int
 )
+
 class GetCharacterUseCase @Inject constructor(
     @IoDispatcher dispatcher: CoroutineDispatcher,
     private val repository: MarvelRepository

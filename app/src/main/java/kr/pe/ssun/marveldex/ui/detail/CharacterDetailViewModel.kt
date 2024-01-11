@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kr.pe.ssun.marveldex.domain.GetCharacterParam
 import kr.pe.ssun.marveldex.domain.GetCharacterUseCase
+import kr.pe.ssun.marveldex.navigation.CharacterDetailArgs
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,9 +18,9 @@ class CharacterDetailViewModel @Inject constructor(
     getCharacterUseCase: GetCharacterUseCase
 ) : ViewModel() {
 
-    val id = savedStateHandle.get<Int>("id") ?: 0
+    private val args = CharacterDetailArgs(savedStateHandle)
 
-    val uiState = getCharacterUseCase(GetCharacterParam(id))
+    val uiState = getCharacterUseCase(GetCharacterParam(args.id))
         .map { result ->
             result.getOrNull()?.let {
                 CharacterDetailUiState.Success(it)

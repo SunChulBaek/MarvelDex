@@ -41,7 +41,7 @@ fun MainNavHost(
             showToast = showToast,
             onBack = onBack
         )
-        // 포토
+        // 캐릭터
         characterDetailScreen(
             enterTransition = defaultEnterTransition(),
             exitTransition = defaultExitTransition(),
@@ -49,7 +49,7 @@ fun MainNavHost(
             popExitTransition = defaultPopExitTransition(),
             navigate = { route, params -> navigate(navController, route, params) },
             showToast = showToast,
-            onBack = onBack
+            onBack = { navController.popBackStack() }
         )
         // 웹뷰
         composable(
